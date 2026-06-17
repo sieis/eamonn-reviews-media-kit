@@ -4,10 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Eamonn Cottrell — Product Reviews</title>
-<meta name="description" content="How I run product reviews for brands, and what they cost. Honest reviews, no scripts.">
-<!-- <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Instrument+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"> -->
+<meta name="description" content="How I run product reviews for brands, and what they cost..">
 <style>
   :root{
     --paper:#F2F1EC;
@@ -18,9 +15,9 @@
     --accent-deep:#0E4536;
     --line:#E3DFD4;
     --line-strong:#CFC9BB;
-    --font-display:'Bricolage Grotesque',sans-serif;
-    --font-body:'Instrument Sans',-apple-system,BlinkMacSystemFont,sans-serif;
-    --font-mono:'Space Mono',ui-monospace,monospace;
+    --font-display:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+    --font-body:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    --font-mono:ui-monospace,'SF Mono','Cascadia Code','Roboto Mono',Consolas,'Courier New',monospace;
   }
 
   *{box-sizing:border-box;margin:0;padding:0;}
@@ -78,10 +75,17 @@
   .topbar a.nav-cta:hover{color:var(--accent);border-color:var(--accent);}
 
   /* ---------- hero ---------- */
-  .hero{padding:clamp(64px,11vw,128px) 0 clamp(48px,8vw,88px);}
+  .hero{padding:clamp(56px,9vw,108px) 0 clamp(48px,8vw,88px);}
+  .hero-row{
+    display:grid;
+    grid-template-columns:1.15fr .85fr;
+    gap:clamp(32px,6vw,64px);
+    align-items:center;
+  }
+  .hero-copy{min-width:0;}
   .hero .eyebrow{display:block;margin-bottom:26px;}
   .hero h1{
-    font-size:clamp(2.9rem,8.5vw,6rem);
+    font-size:clamp(2.6rem,6.5vw,4.6rem);
     font-weight:800;
     max-width:14ch;
   }
@@ -92,6 +96,31 @@
     max-width:42ch;
   }
   .hero .actions{margin-top:40px;}
+
+  .hero-photo{
+    border-radius:18px;
+    overflow:hidden;
+    border:1px solid var(--line-strong);
+    background:var(--card);
+    aspect-ratio:4/5;
+  }
+  .hero-photo img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+  }
+
+  @media (max-width:780px){
+    .hero-row{
+      grid-template-columns:1fr;
+    }
+    .hero-photo{
+      order:-1;
+      aspect-ratio:1/1;
+      max-width:340px;
+    }
+  }
 
   .btn{
     display:inline-block;
@@ -291,11 +320,18 @@
 
     <section class="hero">
       <div class="wrap">
-        <span class="eyebrow reveal">Product Reviews · For Brands</span>
-        <h1 class="reveal d1">Honest reviews. No scripts.</h1>
-        <p class="lead reveal d2">How I run product reviews and what they cost.</p>
-        <div class="actions reveal d3">
-          <a class="btn" href="mailto:eamonncottrell@gmail.com?subject=Product%20review%20inquiry">Get in touch (eamonncottrell @ gmail)</a>
+        <div class="hero-row">
+          <div class="hero-copy">
+            <span class="eyebrow reveal">Product Reviews · For Brands</span>
+            <h1 class="reveal d1">Honest reviews. No scripts.</h1>
+            <p class="lead reveal d2">Here's how I run product reviews and what they cost.</p>
+            <div class="actions reveal d3">
+              <a class="btn" href="mailto:eamonncottrell@gmail.com?subject=Product%20review%20inquiry">Get in touch (eamonncottrell @ gmail)</a>
+            </div>
+          </div>
+          <div class="hero-photo reveal d2">
+            <img src="./assets/headshot.jpg" alt="Eamonn Cottrell">
+          </div>
         </div>
       </div>
     </section>
@@ -336,7 +372,7 @@
             <span class="eyebrow cat">Tech products</span>
             <h3>Tech feature review</h3>
             <div class="price"><span class="q">from</span>$500</div>
-            <p class="body">For tech products, this goes on my main channel: Eamonn Cottrell, where I average 2,000-3,000 hours of monthly watch time with a tech-focused audience. More production effort, I'm more selective about the products here, and it's a much larger reach. Happy to scope it to what you have in mind.</p>
+            <p class="body">For tech products, this goes on my main channel: Eamonn Cottrell, where I average 2,000-3,000 hours of monthly watch time with a tech-focused audience. More production effort, I'm more selective about the products here, and it's a much larger reach.</p>
             <div class="spec">
               <span class="eyebrow eyebrow--muted">Payment</span>
               <div class="specline">50% when the item arrives · balance when the video publishes</div>
@@ -349,7 +385,7 @@
 
     <section class="block logistics">
       <div class="wrap">
-        <span class="eyebrow">Let's Go</span>
+        <span class="eyebrow">Good to know</span>
         <h2>The logistics.</h2>
         <div class="ledger">
           <div class="row">
@@ -358,7 +394,7 @@
           </div>
           <div class="row">
             <div class="label">Lead time</div>
-            <div class="detail">Depending on the product, I'll need some lead time to demo before filming. This can be as few as a few days or as much as a few weeks.</div>
+            <div class="detail">Depending on the product, I'll need some lead time to demo before filming. This can be as few as a couple days or as much as a few weeks.</div>
           </div>
         </div>
       </div>
@@ -382,7 +418,7 @@
       <div class="fmark">Eamonn Cottrell</div>
       <div class="links">
         <a href="https://www.youtube.com/@eamonncottrell">Eamonn Cottrell · YouTube</a>
-        <a href="https://www.youtube.com/@eamonnreviews">Eamonn Reviews · YouTube</a>
+        <a href="https://www.youtube.com/@eamonnreviews">Eamonn Reviews</a>
         <a href="https://www.amazon.com/shop/eamonncottrell">Amazon Storefront</a>
       </div>
       <div class="copy">© 2026 Eamonn Cottrell · Product reviews</div>
