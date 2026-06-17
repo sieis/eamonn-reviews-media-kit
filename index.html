@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eamonn Cottrell — Product Reviews</title>
+<meta name="description" content="How I run product reviews for brands, and what they cost. Honest reviews, no scripts.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Instrument+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F2F1EC;
+    --card:#FCFBF8;
+    --ink:#1B1A16;
+    --muted:#6F6C61;
+    --accent:#15604B;
+    --accent-deep:#0E4536;
+    --line:#E3DFD4;
+    --line-strong:#CFC9BB;
+    --font-display:'Bricolage Grotesque',sans-serif;
+    --font-body:'Instrument Sans',-apple-system,BlinkMacSystemFont,sans-serif;
+    --font-mono:'Space Mono',ui-monospace,monospace;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--font-body);
+    font-size:18px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .wrap{max-width:1040px;margin:0 auto;padding:0 28px;}
+
+  /* mono label system */
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:.72rem;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--accent);
+  }
+  .eyebrow--muted{color:var(--muted);}
+
+  h1,h2,h3{font-family:var(--font-display);line-height:1.04;letter-spacing:-.015em;font-weight:700;}
+
+  a{color:inherit;}
+
+  /* ---------- top bar ---------- */
+  .topbar{
+    border-bottom:1px solid var(--line);
+  }
+  .topbar .wrap{
+    display:flex;align-items:center;justify-content:space-between;
+    height:68px;
+  }
+  .mark{
+    font-family:var(--font-display);
+    font-weight:700;
+    font-size:1.05rem;
+    letter-spacing:-.01em;
+  }
+  .mark span{color:var(--accent);}
+  .topbar a.nav-cta{
+    font-family:var(--font-mono);
+    font-size:.78rem;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    text-decoration:none;
+    border-bottom:1px solid var(--line-strong);
+    padding-bottom:2px;
+    transition:border-color .2s ease,color .2s ease;
+  }
+  .topbar a.nav-cta:hover{color:var(--accent);border-color:var(--accent);}
+
+  /* ---------- hero ---------- */
+  .hero{padding:clamp(64px,11vw,128px) 0 clamp(48px,8vw,88px);}
+  .hero .eyebrow{display:block;margin-bottom:26px;}
+  .hero h1{
+    font-size:clamp(2.9rem,8.5vw,6rem);
+    font-weight:800;
+    max-width:14ch;
+  }
+  .hero p.lead{
+    margin-top:28px;
+    font-size:clamp(1.05rem,2.4vw,1.35rem);
+    color:var(--muted);
+    max-width:42ch;
+  }
+  .hero .actions{margin-top:40px;}
+
+  .btn{
+    display:inline-block;
+    background:var(--accent);
+    color:#fff;
+    text-decoration:none;
+    font-family:var(--font-mono);
+    font-size:.82rem;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    padding:16px 28px;
+    border-radius:2px;
+    transition:background .2s ease,transform .15s ease;
+  }
+  .btn:hover{background:var(--accent-deep);transform:translateY(-2px);}
+  .btn:focus-visible{outline:3px solid var(--accent-deep);outline-offset:3px;}
+
+  /* ---------- generic section ---------- */
+  .block{padding:clamp(48px,7vw,80px) 0;border-top:1px solid var(--line);}
+  .block .eyebrow{display:block;margin-bottom:22px;}
+  .block h2{
+    font-size:clamp(1.7rem,4vw,2.5rem);
+    max-width:18ch;
+  }
+
+  .approach p{
+    margin-top:24px;
+    font-size:clamp(1.1rem,2.5vw,1.5rem);
+    line-height:1.5;
+    max-width:34ch;
+    font-family:var(--font-display);
+    font-weight:500;
+    letter-spacing:-.01em;
+  }
+  .approach p .hl{color:var(--accent);}
+
+  /* ---------- tiers ---------- */
+  .tiers .head{margin-bottom:42px;}
+  .tier-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:22px;
+  }
+  .tier{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:34px 30px 30px;
+    display:flex;
+    flex-direction:column;
+    transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;
+  }
+  .tier:hover{
+    transform:translateY(-4px);
+    border-color:var(--accent);
+    box-shadow:0 18px 40px -28px rgba(21,96,75,.55);
+  }
+  .tier .cat{display:block;margin-bottom:22px;}
+  .tier h3{font-size:1.5rem;font-weight:700;}
+  .price{
+    font-family:var(--font-display);
+    font-weight:800;
+    font-size:clamp(2.8rem,7vw,3.8rem);
+    line-height:1;
+    margin:14px 0 4px;
+    letter-spacing:-.03em;
+  }
+  .price .q{
+    font-family:var(--font-mono);
+    font-weight:400;
+    font-size:.8rem;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--muted);
+    vertical-align:middle;
+    margin-right:8px;
+  }
+  .tier .body{margin-top:14px;color:#322f27;}
+  .tier .spec{
+    margin-top:26px;
+    padding-top:20px;
+    border-top:1px dashed var(--line-strong);
+  }
+  .spec .eyebrow{display:block;margin-bottom:12px;}
+  .tags{display:flex;flex-wrap:wrap;gap:8px;}
+  .tag{
+    font-family:var(--font-mono);
+    font-size:.74rem;
+    letter-spacing:.02em;
+    background:rgba(21,96,75,.07);
+    color:var(--accent-deep);
+    border:1px solid rgba(21,96,75,.16);
+    padding:5px 10px;
+    border-radius:2px;
+  }
+  .spec .specline{
+    font-family:var(--font-mono);
+    font-size:.95rem;
+    color:#322f27;
+  }
+
+  /* ---------- logistics ledger ---------- */
+  .ledger{margin-top:34px;border-top:1px solid var(--line-strong);}
+  .row{
+    display:grid;
+    grid-template-columns:200px 1fr;
+    gap:24px;
+    padding:22px 0;
+    border-bottom:1px solid var(--line);
+    align-items:baseline;
+  }
+  .row .label{
+    font-family:var(--font-mono);
+    font-size:.78rem;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--accent);
+    padding-top:2px;
+  }
+  .row .detail{font-size:1.05rem;}
+
+  /* ---------- closing cta ---------- */
+  .closer{
+    border-top:1px solid var(--line);
+    padding:clamp(60px,9vw,104px) 0;
+  }
+  .closer h2{font-size:clamp(2rem,5vw,3.2rem);max-width:16ch;}
+  .closer p{margin-top:20px;color:var(--muted);max-width:46ch;font-size:1.12rem;}
+  .closer .actions{margin-top:36px;}
+
+  /* ---------- footer ---------- */
+  footer{
+    border-top:1px solid var(--line-strong);
+    padding:40px 0 56px;
+  }
+  footer .wrap{
+    display:flex;
+    flex-wrap:wrap;
+    gap:18px 36px;
+    align-items:center;
+    justify-content:space-between;
+  }
+  footer .fmark{font-family:var(--font-display);font-weight:700;}
+  footer .links{display:flex;flex-wrap:wrap;gap:8px 22px;}
+  footer .links a{
+    font-family:var(--font-mono);
+    font-size:.76rem;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    text-decoration:none;
+    color:var(--muted);
+    transition:color .2s ease;
+  }
+  footer .links a:hover{color:var(--accent);}
+  footer .copy{
+    font-family:var(--font-mono);
+    font-size:.72rem;
+    letter-spacing:.06em;
+    color:var(--muted);
+    width:100%;
+    padding-top:20px;
+    border-top:1px solid var(--line);
+    margin-top:6px;
+  }
+
+  /* ---------- load reveal ---------- */
+  .reveal{opacity:0;transform:translateY(14px);animation:rise .7s cubic-bezier(.2,.7,.2,1) forwards;}
+  .reveal.d1{animation-delay:.06s;}
+  .reveal.d2{animation-delay:.14s;}
+  .reveal.d3{animation-delay:.22s;}
+  @keyframes rise{to{opacity:1;transform:none;}}
+
+  @media (max-width:720px){
+    .tier-grid{grid-template-columns:1fr;}
+    .row{grid-template-columns:1fr;gap:6px;}
+    .row .label{padding-top:0;}
+    .topbar a.nav-cta{display:none;}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    .reveal{animation:none;opacity:1;transform:none;}
+    html{scroll-behavior:auto;}
+    .btn:hover,.tier:hover{transform:none;}
+  }
+</style>
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="wrap">
+      <div class="mark">Eamonn Cottrell<span>.</span></div>
+      <a class="nav-cta" href="mailto:eamonncottrell@gmail.com?subject=Product%20review%20inquiry">Get in touch (eamonncottrell @ gmail)</a>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="hero">
+      <div class="wrap">
+        <span class="eyebrow reveal">Product Reviews · For Brands</span>
+        <h1 class="reveal d1">Honest reviews. No scripts.</h1>
+        <p class="lead reveal d2">How I run product reviews and what they cost.</p>
+        <div class="actions reveal d3">
+          <a class="btn" href="mailto:eamonncottrell@gmail.com?subject=Product%20review%20inquiry">Get in touch (eamonncottrell @ gmail)</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="block approach">
+      <div class="wrap">
+        <span class="eyebrow">How I run reviews</span>
+        <p>I keep the product and give my honest take. If it's great, that comes through; if there are trade-offs, I'll call them fairly. <span class="hl">No scripts</span>: I build the review around how I'd actually use it. Glad to work in a specific shot or angle you want highlighted; I just don't script line-by-line.</p>
+      </div>
+    </section>
+
+    <section class="block tiers">
+      <div class="wrap">
+        <div class="head">
+          <span class="eyebrow">The options</span>
+          <h2>Two ways to work, depending on the product.</h2>
+        </div>
+
+        <div class="tier-grid">
+
+          <article class="tier">
+            <span class="eyebrow cat">Everyday products</span>
+            <h3>Standard review</h3>
+            <div class="price"><span class="q">flat</span>$100</div>
+            <p class="body">Lives on my Eamonn Reviews channel and my Amazon storefront, where I'm a Platinum-level influencer, so the video is eligible to show right on the product page. Good fit for a lot of everyday products.</p>
+            <div class="spec">
+              <span class="eyebrow eyebrow--muted">Strongest categories</span>
+              <div class="tags">
+                <span class="tag">Electronics</span>
+                <span class="tag">Home Improvement</span>
+                <span class="tag">Lawn Care</span>
+                <span class="tag">Musical Instruments — pianos</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="tier">
+            <span class="eyebrow cat">Tech products</span>
+            <h3>Tech feature review</h3>
+            <div class="price"><span class="q">from</span>$500</div>
+            <p class="body">For tech products, this goes on my main channel: Eamonn Cottrell, where I average 2,000-3,000 hours of monthly watch time with a tech-focused audience. More production effort, I'm more selective about the products here, and it's a much larger reach. Happy to scope it to what you have in mind.</p>
+            <div class="spec">
+              <span class="eyebrow eyebrow--muted">Payment</span>
+              <div class="specline">50% when the item arrives · balance when the video publishes</div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="block logistics">
+      <div class="wrap">
+        <span class="eyebrow">Let's Go</span>
+        <h2>The logistics.</h2>
+        <div class="ledger">
+          <div class="row">
+            <div class="label">Products</div>
+            <div class="detail">Shipped to me to keep.</div>
+          </div>
+          <div class="row">
+            <div class="label">Lead time</div>
+            <div class="detail">Depending on the product, I'll need some lead time to demo before filming. This can be as few as a few days or as much as a few weeks.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="closer">
+      <div class="wrap">
+        <span class="eyebrow">Next step</span>
+        <h2>Have a product in mind?</h2>
+        <p>Tell me what it is and where you'd want it to land.</p>
+        <div class="actions">
+          <a class="btn" href="mailto:eamonncottrell@gmail.com?subject=Product%20review%20inquiry">Get in touch (eamonncottrell @ gmail)</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="fmark">Eamonn Cottrell</div>
+      <div class="links">
+        <a href="https://www.youtube.com/@eamonncottrell">Eamonn Cottrell · YouTube</a>
+        <a href="https://www.youtube.com/@eamonnreviews">Eamonn Reviews · YouTube</a>
+        <a href="https://www.amazon.com/shop/eamonncottrell">Amazon Storefront</a>
+      </div>
+      <div class="copy">© 2026 Eamonn Cottrell · Product reviews</div>
+    </div>
+  </footer>
+
+</body>
+</html>
