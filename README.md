@@ -3,3 +3,5 @@
 Current rates for working with me on a product review.
 
 Hosted on Cloudflare Pages
+
+[Live site here.](https://eamonn-reviews-media-kit.eamonncottrell.workers.dev/)
